@@ -7,6 +7,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <?php $titleHead = "Tambah Buku Page";
  include_once 'utility/header.php'?>
 <body>
@@ -14,5 +15,6 @@
 <?php include_once "utility/listBook.php"?>   
 
 </body>
+
 <?php include_once "utility/footer.php"?>   
 </html>

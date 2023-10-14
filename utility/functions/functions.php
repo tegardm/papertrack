@@ -1,7 +1,21 @@
 <?php
 
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require 'vendor/autoload.php';
 $db = mysqli_connect("localhost","root","","papertrack");
 
+
+// Fungsi Read Data
 function readData($syntax) {
     global $db;
 
@@ -13,7 +27,7 @@ function readData($syntax) {
 
     return $rows;
 }
-
+// Fungsi Update Password
 function updatePass() {
     global $db;
     $id = $_POST['id'];
@@ -29,13 +43,12 @@ function updatePass() {
         $syntax = "UPDATE user SET password = '$newPass' WHERE iduser = $id";
         mysqli_query($db,$syntax);
     } else {
-        return false;
-        
+        return false;     
     }
     return mysqli_affected_rows($db);
 
 }
-
+// Fungsi Registrasi User
 function insertRegis ($data) {
     global $db;
     
@@ -45,6 +58,16 @@ function insertRegis ($data) {
     $email = strtolower( $data['email']);
     $hint = strtolower($data['hint']);
 
+    $users = readData("SELECT * FROM user");
+    foreach($users as $user) {
+        if ($user['username'] == $username || $user['email'] == $email) {
+            echo "<script>
+            alert('Registrasi Anda Gagal, Username / Email Tersebut Sudah Digunakan');
+            document.location.href = '../../register.php';
+            </script>";
+        return false;
+        }
+    }
     
 
     if ($password != $repassword) {
@@ -65,7 +88,7 @@ function insertRegis ($data) {
 }
 
 
-
+// Fungsi Login
 function login($data) {
     session_start();
     $users = readData("SELECT * FROM user");
@@ -75,7 +98,8 @@ function login($data) {
   
     foreach($users as $user) {
        
-        if (password_verify($password, $user['password']) && $username == $user['username']) {
+        if (password_verify($password, $user['password']) 
+            && $username == $user['username']) {
             $success = true;
             $cookieName = "username";
             $cookieValue = $username;
@@ -104,14 +128,14 @@ function login($data) {
     }
 }
 
-
+// Fungsi Logout
 function logout() {
     $_SESSION = array();
     session_destroy();
 
  }
 
-
+// Fungsi Edit Buku
  function editBook () {
     global $db;
     $judul = $_POST['judul'];
@@ -148,7 +172,7 @@ function logout() {
     return mysqli_affected_rows($db);
  }
 
-
+// Fungsi Hapus Buku
  function deleteBook($syntax) {
     global $db;
     mysqli_query($db,$syntax);
@@ -161,7 +185,7 @@ function logout() {
 
     
  }
-
+// Fungsi Simpan File Buku
  function uploadFileBook () {
     $nama = $_FILES['book']['name'];
     $ukuran = $_FILES['book']['size'];
@@ -201,6 +225,7 @@ function logout() {
     return $namaFileBaru;
  }
 
+// Fungsi Simpan Data Buku
  function uploadBook () {
     global $db;
     $uploaderId = $_POST['uploader'];
@@ -220,45 +245,72 @@ function logout() {
     return mysqli_affected_rows($db);
  }
 
+//  Fungsi Lupa Password
  function verificationPassword($data) {
+    
     $hint = strtolower($data['hint']);
     $email = strtolower($data['email']);
-    $pass = strtolower($data['password']);
-    $repass = strtolower($data['repassword']);
+   
     $username = strtolower($data['username']);
+    $token = '';
+    for ($i = 0; $i < 4; $i++) {
+    $randomDigit = mt_rand(0, 9); // Angka acak antara 0 dan 9
+    $token .= $randomDigit;
+}   
+
 
     $users = readData("SELECT * FROM user WHERE hint = '$hint' 
     AND email = '$email' AND username = '$username'");
    
     $users ? $user = $users[0] : '';
 
-    if ($pass != $repass) {
-        echo "<script>
-        alert('Password Anda Tidak Sama !');
-        document.location.href = '../../lupa_password.php';
-        </script>";
-        
-    }
+  
 
     if(isset($user)) {
         $data = readData("SELECT * FROM user");
 
-
-        
         foreach ($data as $person) {
             if ($user['username'] == $person['username']
                 && $user['hint'] == $person['hint']
                 && $user['email'] == $person['email'] ) {
-                    $username = $user['username'];
-                    $hint = $user['hint'];
-                    $email = $user['email'];
-                    $hash_password = password_hash($pass, PASSWORD_DEFAULT);
-                    $user['password'] = $hash_password;
-                    global $db; 
-                    $syntax = "UPDATE user SET password = '$hash_password' 
-                    WHERE username = '$username' AND hint = '$hint' AND email = '$email'";
-                    mysqli_query($db,$syntax);
-                    return mysqli_affected_rows($db);
+                    try {
+                        $mail = new PHPMailer(true);
+                        //Server settings
+                        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                        $mail->isSMTP();                                            //Send using SMTP
+                        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+                        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                        $mail->Username   = 'dedeyusufmuslim@gmail.com';                     //SMTP username
+                        $mail->Password   = 'zcgo amvp hxvc aklv';                               //SMTP password
+                        $mail->SMTPSecure = 'ssl';            //Enable implicit TLS encryption
+                        $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                 
+                
+                        //Recipients
+                        $mail->setFrom($email, $username);
+                        $mail->addAddress('dedeyusufmuslim@gmail.com');               //Name is optional
+                        //Content
+                        $mail->isHTML(true);                                  //Set email format to HTML
+                        $mail->Subject = 'Verifikasi Password Untuk PaperTrack';
+                        $mail->Body    = "Berikut Merupakan Kode Token Verifikasi Password Anda : $token";
+                        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+                    
+                        $mail->send();
+                        // echo 'Message has been sent';
+                        $username = $user['username'];
+                        $hint = $user['hint'];
+                        $email = $user['email'];
+                      
+                        global $db; 
+                        $syntax = "UPDATE user SET token = '$token' 
+                        WHERE username = '$username' AND hint = '$hint' AND email = '$email'";
+                        mysqli_query($db,$syntax);
+                        return mysqli_affected_rows($db);
+                    } catch (Exception $e) {
+                        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                    }
+                    
+                    
                 }
         }
 

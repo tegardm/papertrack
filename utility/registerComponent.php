@@ -14,31 +14,31 @@
                             <input type="hidden" name="submit">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" pattern="^[a-zA-Z0-9]{9,15}$" required 
+                                <input  placeholder="Masukan Username" type="text" pattern="^[a-zA-Z0-9]{9,15}$" required 
                                 title="Username harus terdiri dari huruf dan angka, dan panjangnya antara 9 hingga 15 karakter"
-                                class="form-control" id="username" name="username" required>
+                                class="form-control"  id="username" name="username" required>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input placeholder="Masukan Email" type="email" class="form-control" id="email" name="email" required>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" 
+                                <input placeholder="Masukan Password" type="password" 
                                 pattern="^[a-zA-Z0-9]{9,15}$" required 
                                 title="Password harus terdiri dari huruf dan angka, dan panjangnya antara 9 hingga 15 karakter"
                                  class="form-control" id="password" name="password" required>
                             </div>
                             <div class="mb-3">
                                 <label for="repassword" class="form-label">Konfirmasi Password</label>
-                                <input type="password"
+                                <input placeholder="Masukan Password Kembali" type="password"
                                 pattern="^[a-zA-Z0-9]{9,15}$" required 
                                 title="Password harus terdiri dari huruf dan angka, dan panjangnya antara 9 hingga 15 karakter"
                                 class="form-control" id="repassword" name="repassword" required>
                             </div>
                             <div class="mb-3">
                                 <label for="hint" class="form-label">Masukan Buah Favorit Anda</label>
-                                <input type="text" pattern="^[a-zA-Z]+$" required 
+                                <input type="text" placeholder="Masukan Hint   " pattern="^[a-zA-Z]+$" required 
                                 title="Hint hanya boleh berisi huruf" class="form-control" 
                                 id="hint" name="hint" required>
                             </div>

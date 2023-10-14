@@ -4,6 +4,11 @@
     header('Location:home.php');
     exit();
 }
+if (isset($_GET['id'])) {
+  $id = $_GET['id'];
+  // Selanjutnya, Anda dapat menggunakan $id sesuai dengan kebutuhan aplikasi Anda.
+}
+
 
 ?>
 <!DOCTYPE html>

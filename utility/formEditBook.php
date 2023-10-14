@@ -10,7 +10,7 @@ $iduser = $_SESSION['id'];
 <div class="container mt-5">
     <h2 class="mb-4">Edit Buku PDF</h2>
     
-    <form action="utility/functions/edit_book_process.php" method="POST" enctype="multipart/form-data">
+    <form action="http://localhost/kuliah-web/pertemuan5/utility/functions/edit_book_process.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="upload">
         <input type="hidden" name="id" value="<?=$id?>">
         <input type="hidden" name="nama_file" value="<?=$data['nama_file']?>">
@@ -23,7 +23,7 @@ $iduser = $_SESSION['id'];
             <input type="text" value="<?= $data['penulis']?>" class="form-control" id="penulis" name="penulis" required>
         </div>
         <br>
-        <a target="_blank" href="books/<?=$data['nama_file']?>">Lihat Buku</a>
+        <a target="_blank" href="http://localhost/kuliah-web/pertemuan5/books/<?=$data['nama_file']?>">Lihat Buku</a>
         <br>
         <div class="form-group">
             <label for="pdf">Pilih File PDF :</label>

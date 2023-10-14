@@ -20,13 +20,13 @@
                             <input type="hidden" name="submit">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input pattern="^[a-zA-Z0-9]{9,15}$" required 
+                                <input placeholder="Masukan Username" pattern="^[a-zA-Z0-9]{9,15}$" required 
                                 title="Username harus terdiri dari huruf dan angka, dan panjangnya antara 9 hingga 15 karakter" 
                                 type="text" class="form-control" id="username" name="username">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" pattern="^[a-zA-Z0-9]{9,15}$" required 
+                                <input type="password"  placeholder="Masukan Password" pattern="^[a-zA-Z0-9]{9,15}$" required 
                                 title="Password harus terdiri dari huruf dan angka, dan panjangnya antara 9 hingga 15 karakter"
                                  class="form-control" id="password" name="password" required>
                             </div>

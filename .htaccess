@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteBase /kuliah-web/pertemuan5/
+
+# Atur aturan Rewrite untuk mengubah URL edit_buku
+RewriteRule ^edit_buku/(\d+)$ edit_buku.php?id=$1 [L]
+
+# Atur aturan Rewrite untuk mengubah URL tambah_buku
+RewriteRule ^tambah_buku$ tambah_buku.php [L]

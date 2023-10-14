@@ -14,7 +14,7 @@ require 'utility/functions/functions.php';
 ?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="home.php">
+    <a class="navbar-brand" href="http://localhost/kuliah-web/pertemuan5/home.php">
          PaperTrack</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -22,10 +22,10 @@ require 'utility/functions/functions.php';
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="tambah_buku.php">Tambah Buku</a>
+          <a class="nav-link" href="http://localhost/kuliah-web/pertemuan5/tambah_buku.php">Tambah Buku</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="list_buku.php">List Buku</a>
+          <a class="nav-link" href="http://localhost/kuliah-web/pertemuan5/list_buku.php">List Buku</a>
         </li>
         <li class="nav-item">
           
@@ -38,15 +38,15 @@ require 'utility/functions/functions.php';
             <li><a class="dropdown-item" target="_blank" href="https://www.instagram.com/tegar_deyustian/"><i class="bi bi-instagram"></i> Instagram</a></li>
             <li><a class="dropdown-item" target="_blank" href="https://github.com/tegardm"><i class="bi bi-github"></i> Github</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-code"></i> Source Code</a></li>
+            <li><a class="dropdown-item" target="_blank" href="https://github.com/tegardm/papertrack"><i class="bi bi-file-earmark-code"></i> Source Code</a></li>
           </ul>
         </li>
        
       </ul>
       <button class="btn mx-2 btn-outline-primary">
-      <a class="nav-link" href="profile.php">Profile</a>
+      <a class="nav-link" href="http://localhost/kuliah-web/pertemuan5/profile.php">Profile</a>
       </button>  
-      <form action="utility/functions/logout_process.php" method="POST" class="d-flex" >
+      <form action="http://localhost/kuliah-web/pertemuan5/utility/functions/logout_process.php" method="POST" class="d-flex" >
       
       <input type="hidden" class="mx-2" name="logout">
         <button onclick="return confirm('Yakin Ingin Logout ?')" 
